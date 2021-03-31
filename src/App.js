@@ -1,10 +1,16 @@
 import React from 'react';
-import './App.css';
+import styled from 'styled-components';
 
 const App = () => {
+
+  const Hello = styled.h1`
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(62, 89, 212);
+  `;
+
   return (
     <div className="App">
-      <h1>hello</h1>
+      <Hello>hello</Hello>
     </div>
   );
 };
