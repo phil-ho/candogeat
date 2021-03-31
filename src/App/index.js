@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SearchBar from '../SearchBar';
+
 const App = () => {
 
   const Hello = styled.h1`
@@ -11,6 +13,7 @@ const App = () => {
   return (
     <div className="App">
       <Hello>hello</Hello>
+      <SearchBar />
     </div>
   );
 };
