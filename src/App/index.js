@@ -1,58 +1,21 @@
 import React from 'react';
-// import axios from 'axios';
 import SearchBar from '../SearchBar';
 import VoteControl from '../VoteControl';
 import ItemDetail from '../ItemDetail';
 
-import styles from './App.css';
-
-// import setupPretender from '../setup-pretender';
-// setupPretender();
-
-const ItemsTable = ({ items, onVote }) => {
-  const rows = items.map((item) => {
-    const ratingStyle = item.rating < 0 ? 'app__table-rating--unsafe' : 'app__table-rating--safe'
-    return (
-      <tr key={item.id}>
-        <td className='app__image'>
-          <img src={item.image} />
-        </td>
-        <td className='app__food'>{item.name}</td>
-        <td className={`app__table-rating ${ratingStyle}`}>{item.rating < 0 ? 'toxic' : 'safe'}</td>
-        <td>
-          <VoteControl onVote={(newVote) => onVote(item.id, newVote)} />
-        </td>
-      </tr>
-    )
-  });
-
-  return (
-    <table>
-      <thead className='a11y-hidden'>
-        <tr>
-          <th>image</th>
-          <th>name</th>
-          <th>rating</th>
-          <th>vote</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows}
-      </tbody>
-    </table>
-  )
-};
-
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      selectedAnimal: 0,
       items: [],
       search: '',
     }
 
+    this.animals = ['Dogs', 'Cats', 'Birds'];
     this.fetchIndex = 0;
 
     this.fetchResults = this.fetchResults.bind(this);
@@ -75,10 +38,7 @@ class App extends React.Component {
           items,
         });
       })
-      .catch(err => {
-        console.log(err);
-        // error handling
-      });
+      .catch(console.err);
   }
 
   castVote(itemId, vote) {
@@ -97,17 +57,26 @@ class App extends React.Component {
 
   render() {
     const {
+      item,
       items,
       search,
-      item,
+      selectedAnimal,
     } = this.state;
+
+    const nextAnimal = (selectedAnimal + 1 < this.animals.length) ? selectedAnimal + 1 : 0;
 
     return (
       <div className='app'>
         <div className='app__search-container'>
           <h1 className='app__title'>
             <div>can</div>
-            <div className="app__animal-selector">Dogs</div>
+            <button
+              className="app__animal-selector"
+              onClick={() => this.setState({ selectedAnimal: nextAnimal })}
+              type='button'
+            >
+              {this.animals[selectedAnimal]}
+            </button>
             <div>eat?</div>
           </h1>
           <main className='app__main'>
@@ -115,11 +84,11 @@ class App extends React.Component {
             <ItemDetail item={item} />
           </main>
         </div>
-
-        <ItemsTable items={items} onVote={this.castVote}/>
       </div>
     );
   }
 };
 
 export default App;
+
+

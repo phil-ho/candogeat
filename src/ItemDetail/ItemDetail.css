@@ -10,3 +10,16 @@
 .item-detail--show {
   height: auto;
 }
+
+.item-detail__rating {
+  font-size: 164px;
+  margin: 0;
+}
+
+.item-detail__rating--toxic {
+  color: red;
+}
+
+.item-detail__rating--nontoxic {
+  color: green;
+}

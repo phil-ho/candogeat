@@ -15,34 +15,30 @@ body {
   font-weight: bold;
   margin: 0;
   line-height: 90%;
+  width: 50%;
 }
 
 .app__animal-selector {
   color: black;
+  background: unset;
+  border: 3px solid rgba(0, 0, 0, 0);
+  border-bottom: 3px solid rgb(77, 112, 226);
+  font-size: 200px;
+  font-weight: bold;
+  line-height: 90%;
+  box-sizing: border-box;
+  position: relative;
+  animation-name: wiggle;
+  animation-duration: 1000ms;
 }
 
-.app__table {
-
+.app__animal-selector:hover {
+  cursor: pointer;
 }
 
-.app__food {
-
-}
-
-.app__table-rating {
-
-}
-
-.app__table-rating--safe {
-  color: green;
-}
-
-.app__table-rating--unsafe {
-  color: red;
-}
-
-.app__table-rating--unrated {
-
+.app__animal-selector:focus {
+  outline: 0;
+  border: 3px solid rgb(77, 112, 226);
 }
 
 .a11y-hidden {
@@ -52,9 +48,36 @@ body {
 }
 
 .app__main {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5% 5%;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate3d(0, 0, 1, 0);
+  }
+  70% {
+    transform: rotate3d(0, 0, 1, 0);
+  }
+  75% {
+    transform: rotate3d(0, 0, 1, 3deg);
+  }
+  80% {
+    transform: rotate3d(0, 0, 1, -3deg);
+  }
+  85% {
+    transform: rotate3d(0, 0, 1, 3deg);
+  }
+  90% {
+    transform: rotate3d(0, 0, 1, -3deg);
+  }
+  95% {
+    transform: rotate3d(0, 0, 1, 3deg);
+  }
+  100% {
+    transform: rotate3d(0, 0 , 1, 0);
+  }
 }

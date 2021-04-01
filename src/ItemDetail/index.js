@@ -19,7 +19,7 @@ class ItemDetail extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.view === COLLAPSED && this.props.item) {
       const boundingBox = this.myRef.current.getBoundingClientRect();
-      console.log(boundingBox);
+
       this.setState({
         height: boundingBox.height,
         view: EXPANDING,
@@ -33,6 +33,8 @@ class ItemDetail extends React.Component {
       view,
     } = this.state;
 
+    const { item } = this.props;
+
     const style = {};
     let itemClasses = ['item-detail'];
 
@@ -43,14 +45,27 @@ class ItemDetail extends React.Component {
       itemClasses.push('item-detail--show');
     }
 
+    let name;
+    let rating;
+
+    if (item) {
+      name = (<h1 className='item-detail__name'>{item.name}</h1>);
+
+      if (!!item.toxic) {
+        rating = (<h1 className={`item-detail__rating item-detail__rating--toxic`}>NO</h1>);
+      } else {
+        rating = (<h1 className='item-detail__rating item-detail__rating--nontoxic'>YES</h1>);
+      }
+    }
+
     return (
       <div className={itemClasses.join(' ')} style={style} onTransitionEnd={() => this.setState({ view: SHOW })}>
         <div ref={this.myRef}>
-          <h1>item detail</h1>
-          <h1>item detail</h1>
-          <h1>item detail</h1>
-          <h1>item detail</h1>
-          <h1>item detail</h1>
+          {name}
+          {rating}
+          <p>Yes, Because they're delicious! :)  by User1</p>
+          <p>No, Because they're delicious... :(  by User2</p>
+          <p>Explanation of why...</p>
         </div>
       </div>
     );

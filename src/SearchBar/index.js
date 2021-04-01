@@ -84,12 +84,10 @@ class SearchBar extends React.Component {
     );
 
     return (
-      <form
-        className='search-bar'
-        onFocus={() => this.setState({ hasFocus: true })}
-      >
+      <form className='search-bar'>
         <input
           autoComplete='false'
+          autoFocus
           className='search-bar__input'
           type="text"
           value={search}
