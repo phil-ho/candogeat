@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0 6%;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.app__search-container {
+  display: flex;
+}
+
+.app__title {
+  color: rgb(77, 112, 226);
+  font-size: 200px;
+  font-weight: bold;
+  margin: 0;
+  line-height: 90%;
+}
+
+.app__animal-selector {
+  color: black;
+}
+
+.app__table {
+
+}
+
+.app__food {
+
+}
+
+.app__table-rating {
+
+}
+
+.app__table-rating--safe {
+  color: green;
+}
+
+.app__table-rating--unsafe {
+  color: red;
+}
+
+.app__table-rating--unrated {
+
+}
+
+.a11y-hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.app__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 5%;
+}

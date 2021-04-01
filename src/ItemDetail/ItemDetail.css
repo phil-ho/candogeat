@@ -1,0 +1,12 @@
+.item-detail {
+  height: 0;
+  overflow: hidden;
+}
+
+.item-detail--expanding {
+  transition: height .5s;
+}
+
+.item-detail--show {
+  height: auto;
+}

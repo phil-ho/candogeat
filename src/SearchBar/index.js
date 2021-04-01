@@ -1,5 +1,7 @@
 import React from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+
+import styles from './SearchBar.css';
 
 const debounce = function(func, delay) {
   let timerId;
@@ -17,64 +19,90 @@ class SearchBar extends React.Component {
 
     this.state = {
       search: '',
+      suggestions: [],
     };
 
-    this.fetchIndex = 0;
+    this.fetchSuggestions = debounce(this.fetchSuggestions, 250);
+  }
 
-    this.fetchResults = debounce(this.fetchResults, 250);
+  fetchSuggestions() {
+    fetch(`/api/suggestions?q=${encodeURIComponent(this.state.search)}`)
+      .then(response => response.json())
+      .then(suggestions => this.setState({ suggestions }))
+      .catch(console.err);
   }
 
   handleChange(e) {
     const {
-      name,
       value,
     } = e.target;
 
-    this.fetchResults(value);
-
     this.setState({
-      [name]: value,
+      search: value,
     });
+
+    this.fetchSuggestions(value);
   }
 
-  fetchResults(q) {
-    console.log('send query: ', q, this.state);
-    return;
+  handleSelect(suggestion) {
+    const {
+      onSelect
+    } = this.props;
 
-    const currentFetchIndex = ++this.fetchIndex;
+    onSelect(suggestion);
 
-    axios.get(url)
-      .then(response => {
-        if (this.fetchIndex !== currentFetchIndex) {
-          return; // outdated response
-        }
-        let results;
-        this.setState({
-          results,
-        });
-      })
-      .catch(err => {
-        // error handling
-      });
+    this.setState({
+      search: suggestion.name,
+      suggestions: [],
+    });
   }
 
   render() {
     const {
       search,
+      suggestions,
     } = this.state;
 
+    const { onSelect } = this.props;
+
+    const suggestionItems = suggestions.map((suggestion) => (
+      <li key={suggestion.id}>
+        <button
+          className='search-bar__suggestion'
+          onClick={() => this.handleSelect(suggestion)}
+          type='button'
+        >
+          {suggestion.name}
+        </button>
+      </li>
+    ));
+
+    const suggestionList = !!suggestions.length && (
+      <ul className='search-bar__suggestion-list'>
+        {suggestionItems}
+      </ul>
+    );
+
     return (
-      <form>
+      <form
+        className='search-bar'
+        onFocus={() => this.setState({ hasFocus: true })}
+      >
         <input
-          type="search"
-          id="search"
-          name="search"
+          autoComplete='false'
+          className='search-bar__input'
+          type="text"
           value={search}
           onChange={(e) => this.handleChange(e)}
         />
+        {suggestionList}
       </form>
     );
   }
 }
+
+SearchBar.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

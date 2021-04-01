@@ -1,0 +1,17 @@
+.vote-control {
+
+}
+
+.vote-control--upvoted .vote-control__downvote {
+  filter: brightness(50%);
+}
+
+.vote-control--downvoted .vote-control__upvote {
+  filter: brightness(50%);
+}
+
+.vote-control__button {
+  background-color: unset;
+  border: none;
+  font-size: 24px;
+}

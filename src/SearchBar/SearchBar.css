@@ -1,0 +1,39 @@
+.search-bar {
+  position: relative;
+}
+
+.search-bar:not(:focus-within) .search-bar__suggestion-list {
+  display: none;
+}
+
+.search-bar__input {
+  border: 3px solid black;
+  box-sizing: border-box;
+  font-size: 50px;
+  width: 100%;
+}
+
+.search-bar__suggestion-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 3px rgb(0 0 0 / 60%);
+  position: absolute;
+  top: 100%;
+  background: white;
+}
+
+.search-bar__suggestion {
+  width: 100%;
+  background: unset;
+  border: 0;
+  text-align: left;
+  padding: 12px;
+}
+
+.search-bar__suggestion:hover {
+  background-color: rgba(77, 112, 226, 0.3);
+}
